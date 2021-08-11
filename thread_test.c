@@ -1,14 +1,15 @@
 #include<pthread.h>
 #include<stdint.h>
 #include<stdio.h>
+#include<stdatomic.h>
 
-static int64_t foo = 0;
+static  atomic_int_fast64_t foo = 0;
 
 #define N_THREADS 128
 
 void add_foo(){
-    for (int64_t i = 0; i < 1000; ++i){
-        foo++;
+    for (int64_t i = 0; i < 100000; ++i){
+        atomic_fetch_add(&foo, 1);
         //printf("foo %ld\n", foo); 
     }
 }
